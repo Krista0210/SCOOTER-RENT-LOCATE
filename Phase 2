@@ -1,0 +1,470 @@
+script>
+
+
+
+const scooters = [
+
+
+
+{
+
+
+
+    id: 1,
+
+
+
+    name: "Lime Scooter",
+
+
+
+    distance: 0.3,
+
+
+
+    cost: 4.50,
+
+
+
+    available: true
+
+
+
+},
+
+
+
+{
+
+
+
+    id: 2,
+
+
+
+    name: "Bird Scooter",
+
+
+
+    distance: 0.8,
+
+
+
+    cost: 5.25,
+
+
+
+    available: true
+
+
+
+},
+
+
+
+{
+
+
+
+    id: 3,
+
+
+
+    name: "Spin Scooter",
+
+
+
+    distance: 1.2,
+
+
+
+    cost: 3.75,
+
+
+
+    available: false
+
+
+
+},
+
+
+
+{
+
+
+
+    id: 4,
+
+
+
+    name: "Neuron Scooter",
+
+
+
+    distance: 0.5,
+
+
+
+    cost: 4.00,
+
+
+
+    available: true
+
+
+
+}
+
+
+
+];
+
+
+
+function findScooters() {
+
+
+
+    let userLocation =
+
+
+
+        document.getElementById("locationInput").value;
+
+
+
+    let results =
+
+
+
+        document.getElementById("results");
+
+
+
+    results.innerHTML = "";
+
+
+
+    if (userLocation.trim() === "") {
+
+
+
+        results.innerHTML =
+
+
+
+            "<p>Please enter a location.</p>";
+
+
+
+        return;
+
+
+
+    }
+
+
+
+    results.innerHTML =
+
+
+
+        "<h2>Scooters Near " + userLocation + "</h2>";
+
+
+
+    scooters.sort(function(a, b) {
+
+
+
+        return a.distance - b.distance;
+
+
+
+    });
+
+
+
+    for (let i = 0; i < scooters.length; i++) {
+
+
+
+        let scooter = scooters[i];
+
+
+
+        let statusText =
+
+
+
+            scooter.available ?
+
+
+
+            "Available" :
+
+
+
+            "Unavailable";
+
+
+
+        let statusClass =
+
+
+
+            scooter.available ?
+
+
+
+            "available" :
+
+
+
+            "unavailable";
+
+
+
+        results.innerHTML += `
+
+
+
+        <div class="scooter-card">
+
+
+
+            <h3>${scooter.name}</h3>
+
+
+
+            <p>Distance: ${scooter.distance} km</p>
+
+
+
+            <p>Cost: $${scooter.cost}</p>
+
+
+
+            <p class="${statusClass}">
+
+
+
+                ${statusText}
+
+
+
+            </p>
+
+
+
+            <button
+
+
+
+            onclick="showRentalOptions(${scooter.id})">
+
+
+
+            View Rental Options
+
+
+
+            </button>
+
+
+
+        </div>
+
+
+
+        `;
+
+
+
+    }
+
+
+
+}
+
+
+
+function showRentalOptions(id) {
+
+
+
+    let scooter =
+
+
+
+        scooters.find(
+
+
+
+            scooter => scooter.id === id
+
+
+
+        );
+
+
+
+    let results =
+
+
+
+        document.getElementById("results");
+
+
+
+    if (!scooter.available) {
+
+
+
+        alert(
+
+
+
+            "Sorry, this scooter is unavailable."
+
+
+
+        );
+
+
+
+        return;
+
+
+
+    }
+
+
+
+    results.innerHTML += `
+
+
+
+    <div class="scooter-card">
+
+
+
+        <h3>Rent ${scooter.name}</h3>
+
+
+
+        <p>
+
+
+
+        Cost Per Ride:
+
+
+
+        $${scooter.cost}
+
+
+
+        </p>
+
+
+
+        <p>
+
+
+
+        Distance Away:
+
+
+
+        ${scooter.distance} km
+
+
+
+        </p>
+
+
+
+        <button
+
+
+
+        onclick="rentScooter('${scooter.name}')">
+
+
+
+        Rent Now
+
+
+
+        </button>
+
+
+
+    </div>
+
+
+
+    `;
+
+
+
+}
+
+
+
+function rentScooter(companyName) {
+
+
+
+    let confirmationNumber =
+
+
+
+        Math.floor(
+
+
+
+            Math.random() * 10000
+
+
+
+        );
+
+
+
+    alert(
+
+
+
+        "Rental Confirmed!\n\n" +
+
+
+
+        "Company: " +
+
+
+
+        companyName +
+
+
+
+        "\nConfirmation #: " +
+
+
+
+        confirmationNumber
+
+
+
+    );
+
+
+
+}
+
+
+
+</script>
+
